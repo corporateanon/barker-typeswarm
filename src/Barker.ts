@@ -31,6 +31,8 @@ export const Barker: (options: BarkerOptions) => StrictSpecification = ({
     }).with(setImageTag({ image, tag }));
 
     return {
-        [serviceName]: service,
+        services: {
+            [serviceName]: service,
+        },
     };
 };
