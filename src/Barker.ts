@@ -28,7 +28,9 @@ export const Barker: (options: BarkerOptions) => StrictSpecification = ({
             DB_DRIVER: 'mysql',
             DB_CONNECTION: `${dbUser}:${dbPassword}@tcp(${dbHost}:${dbPort})/${dbName}?charset=utf8mb4&parseTime=True&loc=Local`,
         },
-    }).with(setImageTag({ image, tag }));
+    })
+        .with(setImageTag({ image, tag }))
+        .value();
 
     return {
         services: {
