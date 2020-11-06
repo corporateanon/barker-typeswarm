@@ -5,6 +5,9 @@ export interface BarkerOptions {
     image?: string;
     tag: string;
 
+    workerImage?: string;
+    workerTag: string;
+
     dbUser: string;
     dbPassword: string;
     dbHost: string;
@@ -12,6 +15,7 @@ export interface BarkerOptions {
     dbName: string;
 
     serviceName?: string;
+    workerServiceName?: string;
 }
 export const Barker: (options: BarkerOptions) => StrictSpecification = ({
     dbHost,
@@ -19,9 +23,12 @@ export const Barker: (options: BarkerOptions) => StrictSpecification = ({
     dbPassword,
     dbUser,
     tag,
-    dbPort = 3306,
+    workerTag,
     image = 'docker.pkg.github.com/corporateanon/barker/barker',
+    workerImage = 'docker.pkg.github.com/corporateanon/barker-worker/barker-worker',
+    dbPort = 3306,
     serviceName = 'barker',
+    workerServiceName = 'barker-worker',
 }) => {
     const service = wrapService({
         environment: {
@@ -32,9 +39,18 @@ export const Barker: (options: BarkerOptions) => StrictSpecification = ({
         .with(setImageTag({ image, tag }))
         .value();
 
+    const workerService = wrapService({
+        environment: {
+            BARKER_URL: `${serviceName}:3000`,
+        },
+    })
+        .with(setImageTag({ image: workerImage, tag: workerTag }))
+        .value();
+
     return {
         services: {
             [serviceName]: service,
+            [workerServiceName]: workerService,
         },
     };
 };
