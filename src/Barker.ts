@@ -41,7 +41,7 @@ export const Barker: (options: BarkerOptions) => StrictSpecification = ({
 
     const workerService = wrapService({
         environment: {
-            BARKER_URL: `${serviceName}:3000`,
+            BARKER_URL: `http://${serviceName}:3000`,
         },
     })
         .with(setImageTag({ image: workerImage, tag: workerTag }))
