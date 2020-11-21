@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "@types/node": "^14.6.2",
-        "@typeswarm/mariadb": "0.0.2",
+        "@typeswarm/mariadb": "0.0.3",
         "@typeswarm/utils": "0.0.2",
         "dotenv": "^8.2.0",
         "immer": "^7.0.9"
